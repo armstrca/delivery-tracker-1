@@ -1,7 +1,10 @@
 desc "Hydrate the database with some sample data to look at so that developing is easier"
 task({ :sample_data => :environment}) do
-  User.destroy_all
-  Delivery.destroy_all
+  puts "Sample data task running"
+  if Rails.env.development?
+    Delivery.destroy_all
+    User.destroy_all
+  end
 
   usernames = ["alice", "bob", "carol", "dave", "eve"]
 
@@ -13,7 +16,7 @@ task({ :sample_data => :environment}) do
 
     10.times do
       delivery = Delivery.new
-      delivery.user_id = user.id
+      delivery.user_id = User.all.sample.id
       delivery.description = Faker::Commerce.product_name
       delivery.details = "#{["FedEx", "UPS", "USPS"].sample} tracking ##{rand(1000000000000)}" if rand < 0.5
       delivery.supposed_to_arrive_on = Faker::Date.between(from: 1.month.ago, to: 2.weeks.from_now)
@@ -27,4 +30,6 @@ task({ :sample_data => :environment}) do
       delivery.save
     end
   end
+  puts "There are now #{User.count} rows in the users table."
+  puts "There are now #{Delivery.count} rows in the deliveries table."
 end

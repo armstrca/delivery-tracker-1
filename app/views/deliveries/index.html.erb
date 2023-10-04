@@ -1,0 +1,70 @@
+<div>
+  <div>
+    <h1>
+      List of all deliveries
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new delivery
+    </h2>
+
+    <form action="/insert_delivery" method="post">
+      <button>
+        Create delivery
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_deliveries.each do |a_delivery| %>
+      <tr>
+        <td>
+          <%= a_delivery.id %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_delivery.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_delivery.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/deliveries/<%= a_delivery.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
