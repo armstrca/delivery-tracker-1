@@ -18,7 +18,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_04_221645) do
     t.string "description"
     t.string "details"
     t.date "supposed_to_arrive_on"
-    t.boolean "sarrived"
     t.boolean "arrived"
   end
 
